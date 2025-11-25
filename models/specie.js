@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
 const specieSchema = new mongoose.Schema({
-  reino_id: {
+  kingdom_id: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Kingdom',
     required: true
   },
 
   taxonomy_id: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Taxonomy',
     required: true
   },
 
@@ -38,6 +40,7 @@ const specieSchema = new mongoose.Schema({
 
   habitat_id: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Habitat',
     required: true
   },
 
@@ -48,7 +51,7 @@ const specieSchema = new mongoose.Schema({
     },
     vulnerability_rating: {
       type: String,
-      enum: ['low', 'medium', 'high'], // puedes ajustar esto
+      enum: ['low', 'medium', 'high'],
       required: true
     },
     prey_defense: {

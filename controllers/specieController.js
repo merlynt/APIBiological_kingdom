@@ -2,7 +2,11 @@ const Specie = require('../models/Specie');
 
 exports.getSpecies = async (req, res) => {
   try {
-    const species = await Specie.find();
+    const species = await Specie.find()
+      .populate('kingdom_id')
+      .populate('taxonomy_id')
+      .populate('habitat_id')
+
     res.status(200).json(species);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener las especies', error });
@@ -11,7 +15,11 @@ exports.getSpecies = async (req, res) => {
 
 exports.getSpecieById = async (req, res) => {
   try {
-    const specie = await Specie.findById(req.params.id);
+    const specie = await Specie.findById(req.params.id)
+      .populate('kingdom_id')
+      .populate('taxonomy_id')
+      .populate('habitat_id');
+
     if (!specie) {
       return res.status(404).json({ message: 'Especie no encontrada' });
     }
@@ -23,24 +31,32 @@ exports.getSpecieById = async (req, res) => {
 
 exports.createSpecie = async (req, res) => {
   try {
-    const newSpecie = new Specie.create(req.body);
+    const newSpecie = await Specie.create(req.body);
     res.status(201).json(newSpecie);
   } catch (error) {
-    res.status(400).json({ message: 'Error al crear la especie', error });
+    if (error.name === 'ValidationError' || error.name === 'CastError') {
+      return res.status(400).json({ message: 'Datos inválidos', error });
+    }
+    
+    return res.status(500).json({ message: 'Error del servidor al crear', error });
   }
 };
 
 exports.updateSpecie = async (req, res) => {
   try {
-    const updatedSpecie = await Specie.findByIdAndUpdate(req.params.id, req.body,{ new: true, runValidators: true });
+    const updatedSpecie = await Specie.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
 
     if (!updatedSpecie) {
-      return res.status(404).json({ message: 'Especie no encontrada' });
+      res.status(404).json({ message: 'Especie no encontrada' });
     }
 
     res.status(200).json(updatedSpecie);
   } catch (error) {
-    res.status(400).json({ message: 'Error al actualizar la especie', error });
+
+    if (error.name === 'CastError' || error.name === 'ValidationError') {
+      return res.status(400).json({ message: 'Datos inválidos', error });
+    }
+    return res.status(500).json({ message: 'Error del servidor al actualizar', error });
   }
 };
 
@@ -53,6 +69,10 @@ exports.deleteSpecie = async (req, res) => {
 
     res.status(200).json({ message: 'Especie eliminada correctamente' });
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar la especie', error });
+    if (error.name === 'CastError') {
+      return res.status(400).json({ message: 'ID inválido', error });
+    }
+
+    return res.status(500).json({ message: 'Error del servidor al eliminar', error });
   }
 };
