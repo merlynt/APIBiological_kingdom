@@ -16,6 +16,7 @@ app.use("/api/kingdom", require("./routes/kingdomRoute"));
 app.use("/api/taxonomy", require("./routes/taxonomyRoute"));
 app.use("/api/habitat", require("./routes/habitatRoute"));
 app.use("/api/specie", require("./routes/specieRoute"));
+app.use("/api/human_risk", require("./routes/human_riskRoute"));
 
 app.listen(3000, ()=>{
     console.log("server http://localhost:3000")
