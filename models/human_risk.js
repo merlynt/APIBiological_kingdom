@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const humanRiskSchema = new mongoose.Schema({
     Specie_id: {
@@ -30,4 +30,6 @@ const humanRiskSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('HumanRisk', humanRiskSchema);
+const HumanRisk = mongoose.model('HumanRisk', humanRiskSchema);
+
+export default HumanRisk;

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from "express";
+import controller from "../controllers/specieController.js";
+
 const router = express.Router();
-const controller = require('../controllers/specieController');
 
 router.get("/sum", controller.sumSpeciesByTax);
 router.get("/sortStatus", controller.sortStatus);
@@ -21,5 +22,4 @@ router.post('/', controller.createSpecie);
 router.put('/:id', controller.updateSpecie);
 router.delete('/:id', controller.deleteSpecie);
 
-
-module.exports = router;
+export default router;

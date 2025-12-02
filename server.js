@@ -1,23 +1,34 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const DBConnection = require("./config/database");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import DBConnection from "./config/database.js"; // Se requiere .js
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocumentation from './swagger.json' with {type: 'json'};
+import kingdomRouter from "./routes/kingdomRoute.js"; // Se requiere .js, renombrar
+import taxonomyRouter from "./routes/taxonomyRoute.js"; // Se requiere .js, renombrar
+import habitatRouter from "./routes/habitatRoute.js"; // Se requiere .js, renombrar
+import specieRouter from "./routes/specieRoute.js"; // Se requiere .js, renombrar
+import humanRiskRouter from "./routes/human_riskRoute.js"; // Se requiere .js, renombrar
 
 dotenv.config();
 DBConnection();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json())
 
-//rutas
+// Rutas
+// Importante: swaggerUI necesita dos pasos: .serve y .setup. 
+// La ruta del endpoint debe iniciar con /
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
 
-app.use("/api/kingdom", require("./routes/kingdomRoute"));
-app.use("/api/taxonomy", require("./routes/taxonomyRoute"));
-app.use("/api/habitat", require("./routes/habitatRoute"));
-app.use("/api/specie", require("./routes/specieRoute"));
-app.use("/api/human_risk", require("./routes/human_riskRoute"));
+app.use("/api/kingdom", kingdomRouter);
+app.use("/api/taxonomy", taxonomyRouter);
+app.use("/api/habitat", habitatRouter);
+app.use("/api/specie", specieRouter);
+app.use("/api/human_risk", humanRiskRouter);
 
 app.listen(3000, ()=>{
-    console.log("server http://localhost:3000")
-})
+    console.log("server http://localhost:3000");
+});

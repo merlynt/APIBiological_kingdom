@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const KingdomSchema = new mongoose.Schema({
     scientific_name:{
@@ -19,4 +19,6 @@ const KingdomSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-module.exports = mongoose.model("Kingdom", KingdomSchema);
+const Kingdom = mongoose.model("Kingdom", KingdomSchema);
+
+export default Kingdom;

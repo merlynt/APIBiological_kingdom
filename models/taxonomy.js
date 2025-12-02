@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from "mongoose";
 const TaxonomySchema = new mongoose.Schema({
     phylum: {
         type: String,
@@ -24,4 +23,5 @@ const TaxonomySchema = new mongoose.Schema({
     
 });
 
-module.exports = mongoose.model("Taxonomy", TaxonomySchema);
+const Taxonomy = mongoose.model("Taxonomy", TaxonomySchema);
+export default Taxonomy;

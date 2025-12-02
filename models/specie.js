@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const specieSchema = new mongoose.Schema({
   kingdom_id: {
@@ -72,4 +72,6 @@ const specieSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Specie', specieSchema);
+const Specie = mongoose.model('Specie', specieSchema);
+
+export default Specie;
