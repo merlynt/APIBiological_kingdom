@@ -12,7 +12,6 @@ const SpeciesSection = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("Datos recibidos de la API:", data);
         setSpecies(data);
         setLoading(false);
       })

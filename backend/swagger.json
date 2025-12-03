@@ -13,6 +13,10 @@
   "paths": {
     "/api/kingdom/": {
       "get": {
+        "tags": [
+          "Reinos"
+        ],
+        "summary": "Obtener reinos",
         "description": "",
         "responses": {
           "200": {
@@ -24,10 +28,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Reinos"
+        ],
+        "summary": "Crear un nuevo reino",
         "description": "",
+        "parameters": [
+          {
+            "name": "kingdom",
+            "in": "body",
+            "description": "Datos necesarios para crear un reino biológico",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Kingdom"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Reino creado correctamente",
+            "schema": {
+              "$ref": "#/definitions/Kingdom"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -40,24 +62,41 @@
     },
     "/api/kingdom/{id}": {
       "put": {
+        "tags": [
+          "Reinos"
+        ],
+        "summary": "Actualizar un reino",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID del reino a actualizar"
+          },
+          {
+            "name": "kingdom",
+            "in": "body",
+            "description": "Datos actualizados del reino",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Kingdom"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Reino actualizado correctamente",
+            "schema": {
+              "$ref": "#/definitions/Kingdom"
+            }
           },
           "400": {
             "description": "Bad Request"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Reino no encontrado"
           },
           "500": {
             "description": "Internal Server Error"
@@ -65,6 +104,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Reinos"
+        ],
+        "summary": "Eliminar reino",
         "description": "",
         "parameters": [
           {
@@ -90,6 +133,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Reinos"
+        ],
+        "summary": "Obetner reino por id",
         "description": "",
         "parameters": [
           {
@@ -114,6 +161,10 @@
     },
     "/api/taxonomy/": {
       "get": {
+        "tags": [
+          "Taxonomía"
+        ],
+        "summary": "Obtener taxonomia",
         "description": "",
         "responses": {
           "200": {
@@ -125,10 +176,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Taxonomía"
+        ],
+        "summary": "Crear una nueva taxonomía",
         "description": "",
+        "parameters": [
+          {
+            "name": "taxonomy",
+            "in": "body",
+            "description": "Datos necesarios para crear una taxonomía",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Taxonomy"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Taxonomía creada correctamente",
+            "schema": {
+              "$ref": "#/definitions/Taxonomy"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -141,6 +210,10 @@
     },
     "/api/taxonomy/{id}": {
       "put": {
+        "tags": [
+          "Taxonomía"
+        ],
+        "summary": "Actualizar taxonomía",
         "description": "",
         "parameters": [
           {
@@ -148,11 +221,22 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "taxonomy",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Taxonomy"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Taxonomía actualizada correctamente",
+            "schema": {
+              "$ref": "#/definitions/Taxonomy"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -166,6 +250,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Taxonomía"
+        ],
+        "summary": "Borrar taxonomía",
         "description": "",
         "parameters": [
           {
@@ -193,6 +281,10 @@
     },
     "/api/habitat/": {
       "get": {
+        "tags": [
+          "Hábitats"
+        ],
+        "summary": "Obtener hábitats",
         "description": "",
         "responses": {
           "200": {
@@ -204,10 +296,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Hábitats"
+        ],
+        "summary": "Crear un nuevo hábitat",
         "description": "",
+        "parameters": [
+          {
+            "name": "habitat",
+            "in": "body",
+            "description": "Datos necesarios para crear un hábitat",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Habitat"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Hábitat creado correctamente",
+            "schema": {
+              "$ref": "#/definitions/Habitat"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -220,6 +330,10 @@
     },
     "/api/habitat/{id}": {
       "get": {
+        "tags": [
+          "Hábitats"
+        ],
+        "summary": "Obtener hábitats",
         "description": "",
         "parameters": [
           {
@@ -242,24 +356,41 @@
         }
       },
       "put": {
+        "tags": [
+          "Hábitats"
+        ],
+        "summary": "Actualizar un hábitat",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID del hábitat a actualizar"
+          },
+          {
+            "name": "habitat",
+            "in": "body",
+            "description": "Datos del hábitat a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Habitat"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Hábitat actualizado correctamente",
+            "schema": {
+              "$ref": "#/definitions/Habitat"
+            }
           },
           "400": {
             "description": "Bad Request"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Hábitat no encontrado"
           },
           "500": {
             "description": "Internal Server Error"
@@ -267,6 +398,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Hábitats"
+        ],
+        "summary": "Obtener hábitats",
         "description": "",
         "parameters": [
           {
@@ -294,6 +429,10 @@
     },
     "/api/specie/sum": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Cantidad de especies por taxonimia",
         "description": "",
         "parameters": [
           {
@@ -322,6 +461,10 @@
     },
     "/api/specie/sortStatus": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Ordenar por estado de consevacion",
         "description": "",
         "responses": {
           "200": {
@@ -335,6 +478,10 @@
     },
     "/api/specie/statusRange": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Rango de estado de conservacion",
         "description": "",
         "parameters": [
           {
@@ -363,6 +510,10 @@
     },
     "/api/specie/search": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Filtro por nombre científico y taxonomía",
         "description": "",
         "parameters": [
           {
@@ -408,6 +559,10 @@
     },
     "/api/specie/country": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Buscar especies por país o región",
         "description": "",
         "parameters": [
           {
@@ -431,6 +586,10 @@
     },
     "/api/specie/status": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Buscar especies por estado de conservación",
         "description": "",
         "parameters": [
           {
@@ -454,6 +613,10 @@
     },
     "/api/specie/exclude": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Excluir especies por taxonomía",
         "description": "",
         "parameters": [
           {
@@ -494,6 +657,10 @@
     },
     "/api/specie/simple": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Proyectar campos clave de la especie.",
         "description": "",
         "responses": {
           "200": {
@@ -507,6 +674,10 @@
     },
     "/api/specie/distribution": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Mostrar especies con su distribución",
         "description": "",
         "responses": {
           "200": {
@@ -520,6 +691,10 @@
     },
     "/api/specie/endangeredSpecies": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Especie más amenazada.",
         "description": "",
         "responses": {
           "200": {
@@ -533,6 +708,10 @@
     },
     "/api/specie/": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Obtener especies",
         "description": "",
         "responses": {
           "200": {
@@ -544,10 +723,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Crear una nueva especie",
         "description": "",
+        "parameters": [
+          {
+            "name": "specie",
+            "in": "body",
+            "description": "Datos necesarios para crear una especie",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Specie"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Especie creada correctamente",
+            "schema": {
+              "$ref": "#/definitions/Specie"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -560,6 +757,10 @@
     },
     "/api/specie/{id}": {
       "get": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Obtener especie por id",
         "description": "",
         "parameters": [
           {
@@ -582,24 +783,41 @@
         }
       },
       "put": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Actualizar una especie",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID de la especie a actualizar"
+          },
+          {
+            "name": "specie",
+            "in": "body",
+            "description": "Datos actualizados de la especie",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Specie"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Especie actualizada correctamente",
+            "schema": {
+              "$ref": "#/definitions/Specie"
+            }
           },
           "400": {
             "description": "Bad Request"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Especie no encontrada"
           },
           "500": {
             "description": "Internal Server Error"
@@ -607,6 +825,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Especies"
+        ],
+        "summary": "Eliminar especie",
         "description": "",
         "parameters": [
           {
@@ -634,6 +856,10 @@
     },
     "/api/human_risk/": {
       "get": {
+        "tags": [
+          "Riesgos Humanos"
+        ],
+        "summary": "Obtener datos",
         "description": "",
         "responses": {
           "200": {
@@ -645,10 +871,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Riesgos Humanos"
+        ],
+        "summary": "Registrar un riesgo hacia humanos",
         "description": "",
+        "parameters": [
+          {
+            "name": "humanRisk",
+            "in": "body",
+            "description": "Datos necesarios para registrar un riesgo causado por una especie",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HumanRisk"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Riesgo registrado correctamente",
+            "schema": {
+              "$ref": "#/definitions/HumanRisk"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -661,6 +905,10 @@
     },
     "/api/human_risk/{id}": {
       "get": {
+        "tags": [
+          "Riesgos Humanos"
+        ],
+        "summary": "Obtener datos por id",
         "description": "",
         "parameters": [
           {
@@ -686,24 +934,41 @@
         }
       },
       "put": {
+        "tags": [
+          "Riesgos Humanos"
+        ],
+        "summary": "Actualizar un riesgo hacia humanos",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID del riesgo a actualizar"
+          },
+          {
+            "name": "humanRisk",
+            "in": "body",
+            "description": "Datos actualizados del riesgo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HumanRisk"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Riesgo actualizado correctamente",
+            "schema": {
+              "$ref": "#/definitions/HumanRisk"
+            }
           },
           "400": {
             "description": "Bad Request"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Riesgo no encontrado"
           },
           "500": {
             "description": "Internal Server Error"
@@ -711,6 +976,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Riesgos Humanos"
+        ],
+        "summary": "Eliminar",
         "description": "",
         "parameters": [
           {

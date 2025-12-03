@@ -90,25 +90,45 @@ export const getSpecieByCountry = async (req, res) => {
 export const getSpecieByRangeStatus = async (req, res) => {
   try {
     const { minStatus, maxStatus } = req.query;
-    const statusOrderOriginal = [
-      "preocupación menor", "casi amenazado", "vulnerable", "en peligro",
-      "en peligro crítico", "extinto en estado silvestre", "extinto"
+
+    if (!minStatus || !maxStatus) {
+      return res.status(400).json({ message: "Debe enviar los estados de rango mínimo y máximo." });
+    }
+
+    const statusOrder = [
+      "preocupación menor",
+      "casi amenazado",
+      "vulnerable",
+      "en peligro",
+      "en peligro crítico",
+      "extinto en estado silvestre",
+      "extinto"
     ];
 
-    const statusOrderLowerCase = statusOrderOriginal.map(s => s.toLowerCase());
-    if (!minStatus || !maxStatus) return res.status(400).json({ message: "Debe enviar los estados de rango mínimo y máximo." });
+    const lowerStatusOrder = statusOrder.map(s => s.toLowerCase());
 
-    const minIndex = statusOrderLowerCase.indexOf(minStatus.trim().toLowerCase());
-    const maxIndex = statusOrderLowerCase.indexOf(maxStatus.trim().toLowerCase());
+    const minIndex = lowerStatusOrder.indexOf(minStatus.trim().toLowerCase());
+    const maxIndex = lowerStatusOrder.indexOf(maxStatus.trim().toLowerCase());
 
-    if (minIndex === -1 || maxIndex === -1 || minIndex > maxIndex)
-      return res.status(400).json({ message: "Estados de conservación inválidos o el rango es incorrecto." });
+    if (minIndex === -1 || maxIndex === -1 || minIndex > maxIndex) {
+      return res.status(400).json({ message: "Estados inválidos o rango incorrecto." });
+    }
 
-    const requiredStatuses = statusOrderOriginal.slice(minIndex, maxIndex + 1);
-    const species = await Specie.find({ conservation_status: { $in: requiredStatuses } });
+    const requiredStatuses = statusOrder.slice(minIndex, maxIndex + 1);
+
+    const regexStatuses = requiredStatuses.map(s => new RegExp(`^${s}$`, "i"));
+
+    const species = await Specie.find({
+      conservation_status: { $in: regexStatuses }
+    });
+
     res.status(200).json(species);
+
   } catch (error) {
-    res.status(500).json({ message: 'Error al buscar especies por rango de estado.', error });
+    res.status(500).json({
+      message: "Error al buscar especies por rango de estado.",
+      error
+    });
   }
 };
 
