@@ -18,7 +18,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
+// Configurar Swagger dinámicamente según el entorno
+const swaggerConfig = {
+  ...swaggerDocumentation,
+  host: process.env.SWAGGER_HOST || 'localhost:3000',
+  schemes: process.env.NODE_ENV === 'production' ? ['https'] : ['http']
+};
+
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerConfig));
 
 app.use("/api/kingdom", kingdomRouter);
 app.use("/api/taxonomy", taxonomyRouter);
@@ -28,7 +35,17 @@ app.use("/api/human_risk", humanRiskRouter);
 
 // Ruta raíz para verificar que la API está funcionando
 app.get('/', (req, res) => {
-    res.json({ message: "API is running on Vercel" });
+    res.json({ 
+        message: "API is running on Vercel",
+        documentation: "/doc",
+        endpoints: {
+            kingdom: "/api/kingdom",
+            taxonomy: "/api/taxonomy",
+            habitat: "/api/habitat",
+            specie: "/api/specie",
+            human_risk: "/api/human_risk"
+        }
+    });
 });
 
 // Para desarrollo local
